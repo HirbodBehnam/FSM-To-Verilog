@@ -109,8 +109,25 @@ public static class Types
 
 		public string GenerateNextStateAssigner()
 		{
-			// TODO
-			return "";
+			StringBuilder result = new("\talways @(*) begin\n");
+			result.AppendLine("\t\tcase (p_state)");
+			foreach (string state in Nodes.Select(x => x.Name))
+			{
+				result.AppendLine($"\t\t\t{state}: begin");
+				foreach (Link transition in Links.Where(x => x.Source == state))
+				{
+					result.AppendLine($"\t\t\t\tif ({transition.Name}) begin");
+					result.AppendLine($"\t\t\t\t\tn_state = {transition.Dest};");
+					result.AppendLine("\t\t\t\tend");
+				}
+
+				result.AppendLine($"");
+				result.AppendLine("\t\t\tend");
+			}
+
+			result.AppendLine("\t\tendcase");
+			result.AppendLine("\tend");
+			return result.ToString();
 		}
 	}
 
