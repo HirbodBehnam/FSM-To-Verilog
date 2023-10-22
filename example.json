@@ -1,0 +1,35 @@
+{
+    "inputs": ["a", "b", "c"],
+    "nodes": [{
+            "name": "init",
+            "isAcceptState": true
+        }, {
+            "name": "secondry",
+            "isAcceptState": false
+        }, {
+            "name": "blackhole",
+            "isAcceptState": false
+        }, {
+            "name": "third",
+            "isAcceptState": false
+        }
+    ],
+    "links": [{
+            "name": "a",
+            "source": "init",
+            "dest": "secondry"
+        }, {
+            "name": "c",
+            "source": "secondry",
+            "dest": "third"
+        }, {
+            "name": "c",
+            "source": "third",
+            "dest": "blackhole"
+        }, {
+            "name": "b",
+            "source": "secondry",
+            "dest": "blackhole"
+        }
+    ]
+}

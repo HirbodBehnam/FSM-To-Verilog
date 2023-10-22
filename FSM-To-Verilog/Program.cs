@@ -1,5 +1,4 @@
-﻿using System.Text.Json;
-using FSM_To_Verilog;
+﻿using FSM_To_Verilog;
 
 class Program
 {
@@ -14,12 +13,12 @@ class Program
 		}
 
 		// Parse the json
-		Types.InputJson inputJson = Util.ParseInputJson(args[1]);
+		Types.InputJson inputJson = Util.ParseInputJson(args[0]);
 		if (!inputJson.Valid())
 			Environment.Exit(1);
 
 		// Create the states
-		StreamWriter outputFile = new("output.v");
+		using StreamWriter outputFile = new("output.v");
 		outputFile.Write("module GenerateModule(input wire clk, input wire reset, ");
 		outputFile.Write(inputJson.GenerateInputs());
 		outputFile.WriteLine(", output reg n_state, output reg p_state);");

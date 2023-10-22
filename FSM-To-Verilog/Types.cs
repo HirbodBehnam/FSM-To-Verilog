@@ -94,16 +94,17 @@ public static class Types
 		public string GenerateStates()
 		{
 			StringBuilder result = new("\tlocalparam ");
-			result.Append($"[{Inputs.Length}:0] ");
-			for (var i = 0; i < Inputs.Length; i++)
+			result.Append($"[{Nodes.Length}:0] ");
+			for (var i = 0; i < Nodes.Length; i++)
 			{
-				var allZero = new StringBuilder(new string('0', Inputs.Length))
+				var allZero = new StringBuilder(new string('0', Nodes.Length))
 				{
 					[i] = '1'
 				};
-				result.Append($"{Inputs[i]}={Inputs.Length}'b{allZero}, ");
+				result.Append($"{Nodes[i].Name}={Nodes.Length}'b{allZero}, ");
 			}
 
+			result.Length -= 2; // remove ,
 			return result.AppendLine(";").ToString();
 		}
 
